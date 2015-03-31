@@ -2,6 +2,12 @@ class CaesarCipher
 
   def self.process_cipher(orders, offset)
     puts "orders: #{orders}, offset: #{offset}"
+    char_array_clear_text = orders.scan(/./)
+    char_array_encrypted_text =
+        char_array_clear_text.each do |char|
+          char = char + offset
+          
+        end
   end
   more_orders = true
   while more_orders
