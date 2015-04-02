@@ -4,27 +4,33 @@ class CaesarCipher
     @char_array_clear_text = orders.scan(/./)
     @char_array_encrypted_text = []
     @char_array_clear_text.each do |char|
-      ascii_clear_text = char.ord
-      if ascii_clear_text > 64 && ascii_clear_text < 91
-        is_caps = true
-        ascii_encrypted = ascii_clear_text + offset.to_i
-      elsif ascii_clear_text > 96 && ascii_clear_text < 123
-        is_caps = false
-        ascii_encrypted = ascii_clear_text + offset.to_i
+      @is_caps = false
+      @found_letter = false
+      clear_text = char.ord
+      if clear_text.between? 65, 90
+        @is_caps = true
+        @found_letter = true
+        encrypted_text = clear_text + offset.to_i
+      elsif clear_text.between? 97, 122
+        @is_caps = false
+        @found_letter = true
+        encrypted_text = clear_text + offset.to_i
       else
-        ascii_encrypted = ascii_clear_text
+        encrypted_text = clear_text
+        @found_letter = false
       end
-      if ascii_encrypted > 90 && ascii_encrypted < 97
-        ascii_encrypted += 7
-      elsif ascii_encrypted > 122
-        ascii_encrypted = (ascii_encrypted % 122) + 63
+      if (encrypted_text > 90) && @found_letter && @is_caps
+        encrypted_text += 6
       end
-      ascii_encrypted = ascii_encrypted.chr
-      ascii_encrypted.downcase
-      if is_caps
-        ascii_encrypted.upcase
+      if encrypted_text > 122 && @found_letter
+        encrypted_text = (encrypted_text % 122) + 64
       end
-      @char_array_encrypted_text << ascii_encrypted
+      encrypted_text = encrypted_text.chr
+      encrypted_text = encrypted_text.downcase
+      if @is_caps
+        encrypted_text = encrypted_text.upcase
+      end
+      @char_array_encrypted_text << encrypted_text
     end
   end
 
@@ -51,5 +57,5 @@ class CaesarCipher
       end
     end
   end
-  puts "Sire, by your leave"
+  puts "By your leave Caesar"
 end
