@@ -3,31 +3,32 @@ class CaesarCipher
   def self.caesar_cipher(orders, offset)
     @char_array_clear_text = orders.scan(/./)
     @char_array_encrypted_text = []
+    restricted_offset = offset.to_i % 26
     @char_array_clear_text.each do |char|
-      @is_caps = false
-      @found_letter = false
+      is_caps = false
+      found_letter = false
       clear_text = char.ord
       if clear_text.between? 65, 90
-        @is_caps = true
-        @found_letter = true
-        encrypted_text = clear_text + offset.to_i
+        is_caps = true
+        found_letter = true
+        encrypted_text = clear_text + restricted_offset
       elsif clear_text.between? 97, 122
-        @is_caps = false
-        @found_letter = true
-        encrypted_text = clear_text + offset.to_i
+        is_caps = false
+        found_letter = true
+        encrypted_text = clear_text + restricted_offset
       else
         encrypted_text = clear_text
-        @found_letter = false
+        found_letter = false
       end
-      if (encrypted_text > 90) && @found_letter && @is_caps
+      if (encrypted_text > 90) && found_letter && is_caps
         encrypted_text += 6
       end
-      if encrypted_text > 122 && @found_letter
+      if encrypted_text > 122 && found_letter
         encrypted_text = (encrypted_text % 122) + 64
       end
       encrypted_text = encrypted_text.chr
       encrypted_text = encrypted_text.downcase
-      if @is_caps
+      if is_caps
         encrypted_text = encrypted_text.upcase
       end
       @char_array_encrypted_text << encrypted_text
