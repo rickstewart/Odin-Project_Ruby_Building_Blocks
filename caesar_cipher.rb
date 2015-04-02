@@ -1,6 +1,6 @@
 class CaesarCipher
 
-  def self.process_cipher(orders, offset)
+  def self.caesar_cipher(orders, offset)
     @char_array_clear_text = orders.scan(/./)
     @char_array_encrypted_text = []
     @char_array_clear_text.each do |char|
@@ -41,7 +41,7 @@ class CaesarCipher
     orders = gets.chomp
     puts "Caesar, what offset shall we use for the cipher?"
     offset = gets.chomp
-    process_cipher(orders, offset)
+    caesar_cipher(orders, offset)
     puts @char_array_clear_text.join
     puts @char_array_encrypted_text.join
     while not_yes_no
