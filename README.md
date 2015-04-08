@@ -26,5 +26,8 @@ Tests are included in the file.
 
 -------------------------------------------------------------
 
-Project 3:
+Project 3: Substrings
 
+substrings.rb implements a class to search a word or phrase for substrings.
+
+Tests are included in the file.
